@@ -1,5 +1,6 @@
 import { Daemon } from "./daemon";
 import { WalletRPC } from "./wallet-rpc";
+import { Pool } from "./pool";
 import { SCEE } from "./SCEE-Node";
 import { dialog } from "electron";
 
@@ -13,6 +14,7 @@ export class Backend {
         this.mainWindow = mainWindow
         this.daemon = null
         this.walletd = null
+        this.pool = null
         this.wss = null
         this.token = null
         this.config_dir = null
@@ -313,6 +315,7 @@ export class Backend {
 
             this.daemon = new Daemon(this);
             this.walletd = new WalletRPC(this);
+            this.pool = new Pool(this);
 
             this.send("set_app_data", {
                 status: {
@@ -404,6 +407,10 @@ export class Backend {
                             });
 
                             this.walletd.listWallets(true)
+
+                            // TODO temp
+                            this.pool.start(this.config_data)
+
 
                             this.send("set_app_data", {
                                 status: {
@@ -524,6 +531,8 @@ export class Backend {
                 process.push(this.daemon.quit())
             if(this.walletd)
                 process.push(this.walletd.quit())
+            if(this.pool)
+                process.push(this.pool.quit())
             if(this.wss)
                 this.wss.close();
 

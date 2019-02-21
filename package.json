@@ -13,6 +13,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "big-integer": "^1.6.41",
+    "cli-color": "^1.4.0",
+    "cryptoforknote-util": "git://github.com/MoneroOcean/node-cryptoforknote-util.git",
+    "dateformat": "^3.0.3",
     "electron-window-state": "^5.0.2",
     "object-assign-deep": "^0.4.0",
     "portscanner": "^2.2.0",
